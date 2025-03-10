@@ -1,1 +1,43 @@
 
+await fetch("https://node1.cl.hamsterpvp.com/prod/bitquest/code/apply", {
+    "credentials": "include",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Content-Type": "application/json",
+        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNzQ1MzIxMTg4MyIsImV4cCI6MTc0MTY3MDI2MiwiaWF0IjoxNzQxNTgzODYyfQ.1nbXfTStyRSyBDD_aLEh9GcwIEWeI62R2VBgenlHGBc",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
+        "Priority": "u=0",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+    },
+    "referrer": "https://cdn-front.hamsterpvp.com/",
+    "body": "{\"payload\":{\"promoCode\":\"SMASH-GFD2-YMJ7K-YLTKD-1MN7\"}}",
+    "method": "POST",
+    "mode": "cors"
+});
+
+
+{"payload":{"promoCode":"SMASH-GFD2-YMJ7K-YLTKD-1MN7"}}
+
+
+await fetch("https://node1.cl.hamsterpvp.com/prod/bitquest/code/apply", {
+    "credentials": "omit",
+    "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
+        "Accept": "*/*",
+        "Accept-Language": "ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
+        "Priority": "u=4",
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache"
+    },
+    "referrer": "https://cdn-front.hamsterpvp.com/",
+    "method": "OPTIONS",
+    "mode": "cors"
+});
