@@ -1,4 +1,3 @@
-
 import time
 import random
 import os
@@ -13,7 +12,7 @@ import json
 # Загрузка переменных из .env файла
 load_dotenv()
 Bearer = os.getenv('Token')
-DEBUG = True
+DEBUG = False
 
 
 
@@ -102,17 +101,16 @@ def ADS(con):
             httpx_request(url, "POST", data={})
             countdown_timer(random.randint(10, 20),'До следующей рекламы: ')
     else:
-        print ("Всю рекламу посмотрели")         
+        print ("Всю рекламу уже посмотрели")         
     return None
 
 
 
-def start(con):
+def start(con, tryFlag=False):
     url = f"https://{con}/prod/profile/get"
     AccounInfo = httpx_request(url, "POST", data={})  # POST с JSON
     energy = AccounInfo["payload"]["items"]["energy"]["count"]
     ownerId = AccounInfo["payload"]["unit"]["ownerId"]
-
     countBattle = energy // 25
     if countBattle > 0:
         print (f"Число раундов = {countBattle}")
@@ -127,9 +125,17 @@ def start(con):
                 print ("You Lose!")
                 print (f"Winner ID = {winnerId}")
             countdown_timer(random.randint(10, 20),'До следующего раунда: ')    
-    else:         
-        print (f"Энергия = {energy}")
-        print (f"Не хватает энергии!")
+    else:
+        if not tryFlag:
+                print ("Один раз пробуем на тоненького!")
+                url = f"https://{con}/prod/pvp/start"
+                BattleInfo = httpx_request(url, "POST", data={})  # POST с JSON
+                tryFlag = True
+                print (f"Энергия = {energy}")
+                return start(con, tryFlag=True)  # Передаём изменённое значение флага
+        else:
+            print (f"Энергия = {energy}")
+            print (f"Не хватает энергии!")
 
                 
 def balancer():
