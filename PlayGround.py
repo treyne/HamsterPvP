@@ -38,6 +38,7 @@ def debug_print(*args):
         print(*args)
 
 
+
 def LOG(*args):
     if LOG_ON:
         current_time = datetime.now()
@@ -47,6 +48,7 @@ def LOG(*args):
                 file.write(' '.join(map(str, args)) + '\n')
         except Exception as e:
             print(f"Error writing to file: {e}")
+
 
 
 def countdown_timer(seconds, text):
@@ -59,10 +61,12 @@ def countdown_timer(seconds, text):
     print(' ' * len(timer), end='\r')
 
 
+
 def generate_client_id():
     timestamp = int(time.time() * 1000)
     random_numbers = ''.join(str(random.randint(0, 9)) for _ in range(19))
     return f"{timestamp}-{random_numbers}"
+
 
 
 def login_client(app_token):
@@ -111,6 +115,8 @@ def register_event(token, promo_id, delay):
         return register_event(token, promo_id, delay)
 
 
+
+
 def create_code(token, promo_id):
     while True:
         try:
@@ -130,19 +136,6 @@ def create_code(token, promo_id):
             countdown_timer(120, 'Задержка после ошибки создания кода')
 
 
-def main():
-
-    for _ in range(4):
-        for config in configurations:
-            token = login_client(config['app_token'])
-            countdown_timer(random.randint(80, 100), 'wait for login')
-            register_event(token, config['promo_id'], (int(config['rnd1']), int(config['rnd2'])))
-            code_data = create_code(token, config['promo_id'])
-            print(f'Сгенерированный код для {config['game']}: {code_data}')
-            LOG(f'Сгенерированный код для {config['game']}: {code_data}')
-            url = "https://node1.cl.hamsterpvp.com/prod/bitquest/code/apply"
-            httpx_request(url, "POST", data={"payload":{"promoCode":code_data}})
-    countdown_timer(random.randint(14450,14495 ), 'До следующего пака ключей')    
 
 
 
@@ -180,6 +173,30 @@ def httpx_request(url, method, data=None):
     except httpx.RequestError as e:
         debug_print(f"Ошибка сети: {e}")
         return None
+
+
+
+   
+    
+    
+def main():
+    i = 0
+    while i < 4:
+        for config in configurations:
+            token = login_client(config['app_token'])
+            countdown_timer(random.randint(80, 100), 'wait for login')
+            register_event(token, config['promo_id'], (int(config['rnd1']), int(config['rnd2'])))
+            code_data = create_code(token, config['promo_id'])
+            print(f'Сгенерированный код для {config['game']}: {code_data}')
+            LOG(f'Сгенерированный код для {config['game']}: {code_data}')
+            # print(f'Тест для {config['game']}: Test')
+            url = "https://node1.cl.hamsterpvp.com/prod/bitquest/code/apply"
+            httpx_request(url, "POST", data={"payload":{"promoCode":code_data}})
+        i += 1        
+        countdown_timer(random.randint(14450,14495 ), 'До следующего пака ключей')    
+    
+    
+    
 
 
 
