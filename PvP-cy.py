@@ -180,6 +180,7 @@ def checkAuth(con):
            
 def ADS(con):
     url = f"https://{con}/prod/ads/rewarded/info"
+    print (url)
     viewsCount = httpx_request(url, "POST", data={})[0]
     print (viewsCount)
     viewsCount = viewsCount["payload"]["rewarded"]["viewsCount"] 
@@ -258,15 +259,15 @@ auth = checkAuth(ads_con)
 if auth=="start":
     Auth()
 
-# ADS(ads_con)
+ADS(ads_con)
 start(random.choice(connections))
 
 countdown_timer(1500,'До следующего раунда: ')
 
 while True:
     auth = checkAuth(ads_con)
-    ADS(ads_con)
     if auth=="start":
         Auth()
+    ADS(ads_con)    
     start(random.choice(connections))
     countdown_timer(1500,'До следующего раунда: ')
